@@ -33,7 +33,7 @@ def generate_random_products(amount_of_products):
         Products.append(temp_product)
 
 
-def add_product(product_type, product_size, product_color):
+def add_single_product(product_type, product_size, product_color):
     # create the product with given parameters
     temp_product = [product_type,
                     Product_Prices[Product_Types.index(product_type)],
@@ -54,9 +54,9 @@ def change_price(target_product, target_price):
 
     # if there are more products of the same type, print only once
     if price_changed:
-        print(f'The price for {target_product} is now ${target_price} ')
+        print(f'* The price for {target_product} is now ${target_price} * ')
     else:
-        print('The specified product is not available')
+        print('* The specified product is not available *')
 
 
 def check_stock_quantity(target_product):
@@ -65,7 +65,7 @@ def check_stock_quantity(target_product):
         if product[0] == target_product:
             stock_quantity += 1
 
-    print(f'The stock quantity of {target_product} is {stock_quantity} ')
+    print(f'* The stock quantity of {target_product} is {stock_quantity} *')
     print()
 
 
@@ -76,21 +76,38 @@ def sell_product(target_product, target_size, target_color):
         if product[0] == target_product and product[2] == target_size and product[3] == target_color:
             Products.remove(product)
             product_found = True
-            print(f'{product[3]} {target_product} was sold for ${product[1]}')
+            print(f'* {product[3]} {target_product} was sold for ${product[1]} *')
             # We found a specified product, now exit
             return
 
     # if the product is not found, inform the user
     if not product_found:
-        print("The requested product is not available")
+        print("* The requested product is not available *")
 
 
 def search_for(target_product):
+    print(f'* Any {target_product} is priced at ${Product_Prices[Product_Types.index(target_product)]} *')
     check_stock_quantity(target_product)
-    print(f'Any {target_product} is priced at ${Product_Prices[Product_Types.index(target_product)]}')
     for product in Products:
         if product[0] == target_product:
             print(f'{product[0]}, size: {product[2]}, color: {product[3]}')
+    print()
+
+
+def sell_latest_product():
+    Products.pop()
+
+
+def restock_multiple_products(product_amount, product_type, product_size, product_color):
+    for product in range(product_amount):
+        # create the product with given parameters
+        temp_product = [product_type,
+                        Product_Prices[Product_Types.index(product_type)],
+                        product_size,
+                        product_color]
+
+        # append the product the the Products list
+        Products.append(temp_product)
 
 
 if __name__ == '__main__':
@@ -102,19 +119,16 @@ if __name__ == '__main__':
     # Insert as a parameter, the number of random products to create
     # For better visualisation, keep this number small. But it can be used a big number like 1000 as well.
     generate_random_products(10)
-
     show_all_products()
 
     print('---Add a white shirt with size M---')
     # Specify the type of product, size and color. The price is inserted automatically
-    add_product('Shirt', 'M', 'White')
-
+    add_single_product('Shirt', 'M', 'White')
     show_all_products()
 
     print('---Change the price for Jeans---')
     # Change the price for ALL the specified products
     change_price('Jeans', 26)
-
     show_all_products()
 
     print('---Checking Stock---')
@@ -123,9 +137,21 @@ if __name__ == '__main__':
 
     print('---Selling a specified product---')
     sell_product('Shirt', 'M', 'White')
-
     show_all_products()
 
     print('---Show all the specified products in the store---')
     search_for('Vest')
+
+    print('---Sell the lastest product in the store---')
+    sell_latest_product()
+    show_all_products()
+
+    print('---Restock multiple products of same type---')
+    # Specify the amount of products to be added, Type, Size and Color
+    restock_multiple_products(5, 'Jacket', 'L', 'White')
+    show_all_products()
+
+    print('---Selling a specified product---')
+    sell_product('Jacket', 'L', 'White')
+    show_all_products()
 
