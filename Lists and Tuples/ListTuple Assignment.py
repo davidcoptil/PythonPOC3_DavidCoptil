@@ -1,17 +1,25 @@
 import random
 
+# Index position for products characteristics
+TYPE = 0
+PRICE = 1
+SIZE = 2
+COLOR = 3
+
+# Products characteristics
 Product_Types = ('Hoodie', 'Shirt', 'Jacket', 'Hat', 'Jeans', 'Shorts', 'Vest', 'Coat')
 Product_Prices = (20,        15,       26,      8,     22,       18,      15,     28)
 Product_Sizes = ('S', 'M', 'L', 'XL', 'XXl')
 Product_Colors = ('Black', 'White', 'Red', 'Green', 'Blue', 'Cyan')
 
+# Store products
 Products = []
 
 
 def show_all_products():
     # Print All the product in the store
     for product in Products:
-        print(f'{product[0]}, size: {product[2]}, color: {product[3]}, priced at: ${product[1]}')
+        print(f'{product[TYPE]}, size: {product[SIZE]}, color: {product[COLOR]}, priced at: ${product[PRICE]}')
     print()
 
 
@@ -48,8 +56,8 @@ def change_price(target_product, target_price):
     price_changed = False
     for product in Products:
         # if we found the product that's requested, change it's price to the given value
-        if product[0] == target_product:
-            product[1] = target_price
+        if product[TYPE] == target_product:
+            product[PRICE] = target_price
             price_changed = True
 
     # if there are more products of the same type, print only once
@@ -62,7 +70,7 @@ def change_price(target_product, target_price):
 def check_stock_quantity(target_product):
     stock_quantity = 0
     for product in Products:
-        if product[0] == target_product:
+        if product[TYPE] == target_product:
             stock_quantity += 1
 
     print(f'* The stock quantity of {target_product} is {stock_quantity} *')
@@ -73,10 +81,10 @@ def sell_product(target_product, target_size, target_color):
     product_found = False
     for product in Products:
         # check if the requested product is indeed in stock
-        if product[0] == target_product and product[2] == target_size and product[3] == target_color:
+        if product[TYPE] == target_product and product[SIZE] == target_size and product[COLOR] == target_color:
             Products.remove(product)
             product_found = True
-            print(f'* {product[3]} {target_product} was sold for ${product[1]} *')
+            print(f'* {product[COLOR]} {product[TYPE]} was sold for ${product[PRICE]} *')
             # We found a specified product, now exit
             return
 
@@ -89,8 +97,8 @@ def search_for(target_product):
     print(f'* Any {target_product} is priced at ${Product_Prices[Product_Types.index(target_product)]} *')
     check_stock_quantity(target_product)
     for product in Products:
-        if product[0] == target_product:
-            print(f'{product[0]}, size: {product[2]}, color: {product[3]}')
+        if product[TYPE] == target_product:
+            print(f'{product[TYPE]}, size: {product[SIZE]}, color: {product[COLOR]}')
     print()
 
 
