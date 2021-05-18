@@ -150,7 +150,7 @@ if __name__ == '__main__':
     print('---Show all the specified products in the store---')
     search_for('Vest')
 
-    print('---Sell the lastest product in the store---')
+    print('---Sell the latest product in the store---')
     sell_latest_product()
     show_all_products()
 
