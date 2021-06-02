@@ -147,11 +147,13 @@ def group_germany():
     print("-----Germany Heath index by year, for Female gender-----")
     print(germany_health_index)
 
+
 def display_above_five_percent(grouped_country_and_year):
     print('-----Only higher than 5%-----')
     for country, data in grouped_country_and_year.items():
         if data[2] > 5:
             print(f'{country}, Health Index: {data[2]}')
+
 
 def group_country_and_year():
     grouped_countries = {
